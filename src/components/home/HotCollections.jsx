@@ -23,7 +23,7 @@ const CollectionArrow = ({ className, onClick, direction }) => (
 const sliderSettings = {
   arrows: true,
   dots: false,
-  infinite: false,
+  infinite: true,
   speed: 400,
   slidesToShow: 4,
   slidesToScroll: 1,

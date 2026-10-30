@@ -29,6 +29,7 @@ const HotCollections = require("./HotCollections").default;
 
 afterEach(() => {
   global.fetch = originalFetch;
+  jest.useRealTimers();
 });
 
 const renderCollections = () => render(
@@ -50,23 +51,37 @@ test("shows skeletons while the request is pending and aborts on unmount", () =>
 });
 
 test.each([[1440, 4], [1100, 3], [800, 2], [390, 1]])(
-  "shows %i-pixel viewport with %i active cards and working side arrows",
+  "shows %i-pixel viewport with %i active cards and looping side arrows",
   async (width, count) => {
+    jest.useFakeTimers();
     window.innerWidth = width;
     respondWith(collections);
     const { container } = renderCollections();
     await screen.findByRole("list", { name: "Hot collections" });
     await waitFor(() => expect(container.querySelectorAll(".slick-active")).toHaveLength(count));
-    expect(screen.getByText("Collection 1")).toBeInTheDocument();
-    expect(screen.getByText("ERC-192")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Previous collections" })).toBeDisabled();
+    expect(container.querySelector(".slick-current")).toHaveTextContent("Collection 1");
+    expect(container.querySelector(".slick-current")).toHaveTextContent("ERC-192");
+    expect(screen.getByRole("button", { name: "Previous collections" })).toBeEnabled();
+    const finishSlide = () => {
+      // Slick schedules the navigation and animation completion separately.
+      act(() => { jest.advanceTimersByTime(0); });
+      act(() => { jest.advanceTimersByTime(600); });
+      act(() => { jest.advanceTimersByTime(100); });
+    };
+    const currentSlide = () => container.querySelector(".slick-current:not(.slick-cloned)");
     fireEvent.click(screen.getByRole("button", { name: "Next collections" }));
-    await waitFor(() => expect(container.querySelector(".slick-active")).toHaveAttribute("data-index", "1"));
-    await waitFor(() => expect(screen.getByRole("button", { name: "Previous collections" })).toBeEnabled());
-    // Wait for Slick's animation before returning to the first card via keyboard.
-    await act(async () => { await new Promise((resolve) => setTimeout(resolve, 500)); });
+    finishSlide();
+    expect(currentSlide()).toHaveAttribute("data-index", "1");
     fireEvent.keyDown(container.querySelector(".slick-list"), { keyCode: 37, key: "ArrowLeft" });
-    await waitFor(() => expect(container.querySelector(".slick-active")).toHaveAttribute("data-index", "0"));
+    finishSlide();
+    expect(currentSlide()).toHaveAttribute("data-index", "0");
+    fireEvent.click(screen.getByRole("button", { name: "Previous collections" }));
+    finishSlide();
+    expect(currentSlide()).toHaveAttribute("data-index", "5");
+    expect(screen.getByRole("button", { name: "Next collections" })).toBeEnabled();
+    fireEvent.click(screen.getByRole("button", { name: "Next collections" }));
+    finishSlide();
+    expect(currentSlide()).toHaveAttribute("data-index", "0");
   }
 );
 
