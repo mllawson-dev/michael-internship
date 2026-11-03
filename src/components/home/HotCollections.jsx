@@ -58,6 +58,7 @@ const HotCollections = () => {
             (collection) =>
               collection &&
               collection.id != null &&
+              Number.isSafeInteger(collection.nftId) && collection.nftId > 0 &&
               typeof collection.title === "string" &&
               typeof collection.nftImage === "string" &&
               typeof collection.authorImage === "string" &&
@@ -130,7 +131,7 @@ const HotCollections = () => {
                     <div className="hot-collection-slide" role="listitem" key={collection.id}>
                       <div className="nft_coll">
                         <div className="nft_wrap">
-                          <Link to="/item-details" aria-label={`View ${collection.title}`}>
+                          <Link to={`/item-details?nftId=${collection.nftId}`} aria-label={`View ${collection.title}`}>
                             <img src={collection.nftImage} className="img-fluid" alt={collection.title} />
                           </Link>
                         </div>

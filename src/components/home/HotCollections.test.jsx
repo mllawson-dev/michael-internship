@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 
 const collections = Array.from({ length: 6 }, (_, index) => ({
   id: index + 1,
+  nftId: 1000 + index,
   title: `Collection ${index + 1}`,
   nftImage: `https://example.com/collection-${index}.jpg`,
   authorImage: `https://example.com/author-${index}.jpg`,
@@ -61,6 +62,7 @@ test.each([[1440, 4], [1100, 3], [800, 2], [390, 1]])(
     await waitFor(() => expect(container.querySelectorAll(".slick-active")).toHaveLength(count));
     expect(container.querySelector(".slick-current")).toHaveTextContent("Collection 1");
     expect(container.querySelector(".slick-current")).toHaveTextContent("ERC-192");
+    expect(container.querySelector(".slick-current a")).toHaveAttribute("href", "/item-details?nftId=1000");
     expect(screen.getByRole("button", { name: "Previous collections" })).toBeEnabled();
     const finishSlide = () => {
       // Slick schedules the navigation and animation completion separately.
@@ -99,4 +101,10 @@ test.each(["network", "http", "malformed", "json"])("shows an error for %s failu
   renderCollections();
   expect(await screen.findByRole("alert")).toHaveTextContent("Unable to load hot collections");
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("rejects missing NFT identity instead of creating an invalid item link", async () => {
+  respondWith([{ ...collections[0], nftId: undefined }]);
+  renderCollections();
+  expect(await screen.findByRole("alert")).toHaveTextContent("Unable to load hot collections");
 });
