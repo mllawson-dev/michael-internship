@@ -87,7 +87,7 @@ const HotCollections = () => {
       aria-busy={loading}
     >
       <div className="container">
-        <div className="row">
+        <div className="row" data-aos="fade">
           <div className="col-lg-12 text-center">
             <h2 id="hot-collections-heading">Hot Collections</h2>
             <div className="small-border bg-color-2"></div>

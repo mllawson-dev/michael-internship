@@ -36,6 +36,7 @@ const ExploreItems = () => {
     loadItems();
     return () => controller.abort();
   }, [filter]);
+  // Any comment
 
   return (
     <section className="explore-items" aria-label="Explore items">
@@ -67,7 +68,7 @@ const ExploreItems = () => {
           </ul>
           {visibleCount < items.length && (
             <div className="text-center">
-              <button type="button" id="loadmore" className="btn-main lead"
+              <button data-aos="fade-up" type="button" id="loadmore" className="btn-main lead"
                 onClick={() => setVisibleCount((count) => Math.min(count + 4, items.length))}>
                 Load more
               </button>
