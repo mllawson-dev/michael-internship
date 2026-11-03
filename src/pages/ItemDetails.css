@@ -1,0 +1,14 @@
+.item-details-page .item_info { overflow-wrap: anywhere; }
+.item-details-page .nft-image { max-width: 100%; height: auto; }
+.item-details-page .item-details-person { margin-bottom: 24px; }
+.item-details-page .item_author { display: flex; align-items: center; gap: 12px; }
+.item-details-page .item_author .author_list_pp { position: relative; flex-shrink: 0; margin: 0; }
+.item-details-page .item_author .author_list_info { padding: 0; }
+.item-details-page a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.item-details-page .item-details-skeleton-image { height: 350px; margin-bottom: 24px; }
+.item-details-page .item-details-skeleton-info > div { margin-bottom: 24px; }
+.item-details-page .item-details-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 767px) {
+  .item-details-page .item-details-skeleton-image { height: 280px; }
+}
+@media (prefers-reduced-motion: reduce) { .item-details-page .skeleton-box::after { animation: none; } }
