@@ -1,0 +1,27 @@
+.author-page .profile_name h1 { font-size: 24px; line-height: 1.3em; margin: 0; }
+.author-page .profile_name { min-width: 0; }
+.author-page .profile_wallet { max-width: 200px; }
+.author-page .profile_avatar { min-width: 0; }
+.author-page .profile_avatar > img { flex-shrink: 0; width: 150px; height: 150px; object-fit: cover; }
+.author-page .profile_username, .author-page .profile_name h1 { overflow-wrap: anywhere; }
+.author-page .profile_follow button { border: 0; }
+.author-profile-skeleton { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; }
+.author-profile-skeleton > div { min-width: 0; max-width: 100%; }
+.author-items-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; list-style: none; padding: 0; margin: 0; }
+.author-items-grid > li { min-width: 0; }
+.author-page .nft__item { min-width: 0; margin-bottom: 0; height: 100%; }
+.author-page .nft__item_wrap { height: 300px; margin-top: 10px; }
+.author-page .nft__item_preview { max-height: 290px; object-fit: contain; }
+.author-page .nft__item_info { padding-right: 35px; }
+.author-page .nft__item_info h4 { white-space: normal; overflow-wrap: anywhere; }
+.author-page .nft__item_like { position: absolute; right: 0; bottom: 0; float: none; }
+.author-page a:focus-visible, .author-page button:focus-visible { outline: 3px solid #8364e2; outline-offset: 3px; }
+.author-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 991px) { .author-items-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 575px) {
+  .author-items-grid { grid-template-columns: minmax(0, 1fr); }
+  .author-profile-skeleton { flex-wrap: wrap; }
+  .author-page .profile_avatar { flex-wrap: wrap; }
+  .author-page .profile_name { margin: 20px 0 0; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .author-page .skeleton-box::after { animation: none; } }
