@@ -5,10 +5,12 @@ import Author from "./pages/Author";
 import ItemDetails from "./pages/ItemDetails";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import ScrollAnimations from "./components/UI/ScrollAnimations";
 
 function App() {
   return (
     <Router>
+      <ScrollAnimations />
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />

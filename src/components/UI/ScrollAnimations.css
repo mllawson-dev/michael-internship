@@ -1,0 +1,31 @@
+/* Match the reference's Animate.css distances rather than AOS's 100px default. */
+html.scroll-animations-enabled [data-aos="fade-up"] {
+  transform: translate3d(0, 30%, 0);
+}
+
+html.scroll-animations-enabled [data-aos="fade-left"] {
+  transform: translate3d(10%, 0, 0);
+}
+
+html.scroll-animations-enabled [data-aos].aos-animate {
+  transform: none;
+}
+
+/* Content stays usable before initialization, after failure, and on keyboard focus. */
+html:not(.scroll-animations-enabled) [data-aos],
+html.scroll-animations-enabled [data-aos]:focus-within {
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: auto !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}

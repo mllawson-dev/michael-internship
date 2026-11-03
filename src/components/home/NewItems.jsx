@@ -61,9 +61,9 @@ const NewItems = () => {
 
   return (
     <section id="section-items" className="no-bottom new-items" aria-labelledby="new-items-heading">
-      <div className="container">
+      <div className="container" data-aos="fade">
         <div className="text-center">
-          <h2 id="new-items-heading">New Items</h2>
+          <h2 id="new-items-heading" data-aos="fade">New Items</h2>
           <div className="small-border bg-color-2"></div>
         </div>
         {status === "loading" && (
