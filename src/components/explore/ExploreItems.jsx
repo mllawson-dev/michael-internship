@@ -36,6 +36,7 @@ const ExploreItems = () => {
     loadItems();
     return () => controller.abort();
   }, [filter]);
+  // FROM MAIN!!! DO NOT REMOVE
 
   return (
     <section className="explore-items" aria-label="Explore items">
